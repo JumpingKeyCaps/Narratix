@@ -1,0 +1,65 @@
+{
+  "scriptId": "DEMO_1",
+  "startAvatarResName": "betty_sad",
+  "messages": [
+    {
+      "text": "[AVATAR=0] Welcome to the Narratix demo! [AVATAR=1] Here, you'll see our interactive dialogue system in action. [AVATAR=2] Notice how the text appears like a typewriter, line by line, with color highlights.",
+      "highlightMap": {
+        "Narratix": "#FF00FFFF",
+        "interactive dialogue": "#FFFF00FF",
+        "typewriter": "#FFFFFF00",
+        "color highlights": "#FFFF0000"
+      },
+      "speed": 25,
+      "avatars": [
+        "betty_smile_hard",
+        "betty_sad",
+        "betty_doubt"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Each message can contain multiple avatars, changing automatically mid-text. [AVATAR=0] The small arrow at the bottom indicates when you can proceed. [AVATAR=2] Click or tap to speed up the text or move to the next chunk.",
+      "highlightMap": {
+        "multiple avatars": "#FF00FFFF",
+        "small arrow": "#FFFFFF00",
+        "Click": "#FFFF0000",
+        "next chunk": "#FFFF00FF"
+      },
+      "speed": 22,
+      "avatars": [
+        "betty_affraid",
+        "betty_smile_hard",
+        "betty_doubt"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] You can see how the system splits text into two-line chunks for better readability. [AVATAR=1] The overlay also subtly moves the HUD to make space for dialogue. [AVATAR=2] Finally, Betty reacts with breathing animations and expressive faces for immersion.",
+      "highlightMap": {
+        "two-line chunks": "#FF00FFFF",
+        "HUD": "#FFFFFF00",
+        "Betty": "#FFFF0000",
+        "animations": "#FFFF00FF"
+      },
+      "speed": 20,
+      "avatars": [
+        "betty_smile_hard",
+        "betty_affraid",
+        "betty_doubt"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] That's the core of our demo: interactive storytelling with smooth animations, avatar reactions, and a typewriter style crawler. [AVATAR=0] Enjoy exploring the system!",
+      "highlightMap": {
+        "interactive storytelling": "#FF00FFFF",
+        "smooth animations": "#FFFFFF00",
+        "typewriter-style": "#FFFF0000",
+        "Enjoy": "#FFFF00FF"
+      },
+      "speed": 23,
+      "avatars": [
+        "betty_affraid",
+        "betty_doubt"
+      ]
+    }
+  ]
+}
