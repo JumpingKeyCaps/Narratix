@@ -22,6 +22,14 @@ A **modular, cinematic dialogue assistant** for Android, designed to overlay scr
 
 ---
 
+## Design Decisions
+
+- **Raw vs Domain models**: Decouples JSON parsing from UI rendering
+- **Segmentation**: Enables precise typewriter control and mid-message avatar changes
+- **Repository pattern**: Prepares for future data sources (API, cache, etc.)
+
+---
+
 ## Project Layers
 
 ### Models Layer
