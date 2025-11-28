@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import com.lebaillyapp.narratix.assistant.decoration.LiquidBackground
 import com.lebaillyapp.narratix.assistant.ui.screen.CinematicDemoScreen
 import com.lebaillyapp.narratix.assistant.ui.screen.DemoScreen1
 import com.lebaillyapp.narratix.assistant.ui.screen.ParallaxScreen
@@ -41,7 +42,9 @@ class MainActivity : ComponentActivity() {
               //  SensorCrosshairDebugOverkill(viewModel = sensorViewModel)
 
 
-                ParallaxScreen(viewModel = sensorViewModel )
+                LiquidBackground()
+
+           //     ParallaxScreen(viewModel = sensorViewModel )
 
               //  CinematicDemoScreen()
             }
