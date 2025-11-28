@@ -1,0 +1,341 @@
+{
+  "scriptId": "snatch_caravan_dags_full",
+  "startAvatarResName": "avatar_mickey",
+  "messages": [
+    {
+      "text": "[AVATAR=1] C’est toi, Mickey O’Neil ?",
+      "highlightMap": {
+        "Mickey": "#FDD835"
+      },
+      "speed": 26,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] C’est moi. Vous voulez acheter une caravane ?",
+      "highlightMap": {
+        "caravane": "#FFAB40"
+      },
+      "speed": 24,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Ouais. On veut celle-là.",
+      "highlightMap": {
+        "celle-là": "#81D4FA"
+      },
+      "speed": 24,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Laquelle ? Celle-là ?",
+      "highlightMap": {
+        "Celle-là": "#81D4FA"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Ouais.",
+      "highlightMap": {},
+      "speed": 20,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Elle est terrible hein ? J’l’ai payée une fortune.",
+      "highlightMap": {
+        "terrible": "#BA68C8",
+        "fortune": "#FFA726"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Combien ?",
+      "highlightMap": {},
+      "speed": 20,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] J’te la fais à 12 briques.",
+      "highlightMap": {
+        "12 briques": "#FF7043"
+      },
+      "speed": 24,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Quoi ?",
+      "highlightMap": {},
+      "speed": 20,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Elle en vaut 20, mais je te la fais à 12.",
+      "highlightMap": {
+        "20": "#FF7043",
+        "12": "#FF7043"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Tu nous as vus arriver ou quoi ? Elle en vaut pas plus de 4.",
+      "highlightMap": {
+        "4": "#FF7043"
+      },
+      "speed": 24,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Quoi ?",
+      "highlightMap": {},
+      "speed": 18,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] 4 briques.",
+      "highlightMap": {
+        "4 briques": "#FF7043"
+      },
+      "speed": 18,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Viens voir. Regarde l’intérieur. C’est du bleu pervenche les garçons. Et y’a les coussins assortis...",
+      "highlightMap": {
+        "bleu pervenche": "#4FC3F7",
+        "coussins": "#A1887F"
+      },
+      "speed": 23,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] On s’en fout de la couleur. Elle est pas pour nous.",
+      "highlightMap": {
+        "couleur": "#BA68C8"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=0] T’aimes les dags ?",
+      "highlightMap": {
+        "dags": "#FFB300"
+      },
+      "speed": 25,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Les dags ?",
+      "highlightMap": {
+        "dags": "#FFB300"
+      },
+      "speed": 25,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Ouais, les dags.",
+      "highlightMap": {
+        "dags": "#FFB300"
+      },
+      "speed": 23,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] ...",
+      "highlightMap": {},
+      "speed": 20,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=0] Les dags ! Tu aimes les dags ?",
+      "highlightMap": {
+        "dags": "#FFB300"
+      },
+      "speed": 24,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+    {
+      "text": "[AVATAR=1] Ah ! Les chiens ! Ouais, j’aime les chiens.",
+      "highlightMap": {
+        "chiens": "#00C853"
+      },
+      "speed": 25,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=0] J’aime bien les caravanes, moi.",
+      "highlightMap": {
+        "caravanes": "#FFAB40"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=2] On a un budget limité.",
+      "highlightMap": {
+        "budget": "#EF5350"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=0] C’est pour qui la caravane ?",
+      "highlightMap": {
+        "caravane": "#FFAB40"
+      },
+      "speed": 23,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=1] C’est pour not' mère.",
+      "highlightMap": {
+        "mère": "#F48FB1"
+      },
+      "speed": 26,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=0] Ta maman ?",
+      "highlightMap": {
+        "maman": "#F48FB1"
+      },
+      "speed": 22,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=1] Ouais.",
+      "highlightMap": {},
+      "speed": 20,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    },
+
+    {
+      "text": "[AVATAR=0] Ah… C’est pour sa maman...",
+      "highlightMap": {
+        "maman": "#F48FB1"
+      },
+      "speed": 28,
+      "avatars": [
+        "avatar_mickey",
+        "avatar_tommy",
+        "avatar_george"
+      ]
+    }
+  ]
+}
