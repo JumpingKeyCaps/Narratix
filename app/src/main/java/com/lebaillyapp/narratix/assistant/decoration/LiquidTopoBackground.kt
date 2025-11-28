@@ -40,7 +40,7 @@ data class LiquidFlowConfig(
 
 
 @Composable
-fun LiquidBackground() {
+fun LiquidBackground(modifier: Modifier) {
     val context = LocalContext.current
     val config = remember { LiquidFlowConfig() } // Valeurs par défaut finales
 
@@ -75,7 +75,7 @@ fun LiquidBackground() {
     val colorBg = remember { Color(0xFF0A0A10) } // Le fond noir sombre
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(colorBg),
         contentAlignment = Alignment.Center
