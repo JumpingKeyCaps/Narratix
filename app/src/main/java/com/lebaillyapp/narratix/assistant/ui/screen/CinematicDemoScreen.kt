@@ -1,7 +1,6 @@
 package com.lebaillyapp.narratix.assistant.ui.screen
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
@@ -10,7 +9,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -19,6 +17,8 @@ import com.lebaillyapp.narratix.assistant.ui.composition.AssistantOverlay
 import com.lebaillyapp.narratix.assistant.ui.viewmodel.AssistantViewModel
 import com.lebaillyapp.narratix.assistant.ui.viewmodel.factory.AssistantViewModelFactory
 import com.lebaillyapp.narratix.R
+import com.lebaillyapp.narratix.assistant.decoration.LiquidBackground
+
 /**
  * Demo screen with a cinematic background and auto-starting AssistantOverlay.
  * Supports multiple demo scripts if you want to switch them later.
@@ -57,15 +57,11 @@ fun CinematicDemoScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        // Background image with subtle fade
-        Image(
-            painter = androidx.compose.ui.res.painterResource(id = backgroundResId),
-            contentDescription = "Demo Background",
-            modifier = Modifier
-                .fillMaxSize()
-                .scale(scaleAnim)
-                .alpha(0.95f),
-            contentScale = ContentScale.Crop
+
+        LiquidBackground(modifier = Modifier
+            .fillMaxSize()
+            .scale(scaleAnim)
+            .alpha(0.95f)
         )
 
         // Optional overlay gradient for cinematic feel
