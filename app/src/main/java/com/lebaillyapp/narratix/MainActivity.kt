@@ -39,14 +39,9 @@ class MainActivity : ComponentActivity() {
             NarratixTheme {
                 //DemoScreen1()
 
-              //  SensorCrosshairDebugOverkill(viewModel = sensorViewModel)
-
-
-                LiquidBackground()
-
            //     ParallaxScreen(viewModel = sensorViewModel )
 
-              //  CinematicDemoScreen()
+                CinematicDemoScreen()
             }
         }
     }
