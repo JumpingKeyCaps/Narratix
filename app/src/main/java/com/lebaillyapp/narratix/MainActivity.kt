@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.lebaillyapp.narratix.assistant.ui.screen.CinematicDemoScreen
 import com.lebaillyapp.narratix.assistant.ui.screen.DemoScreen1
+import com.lebaillyapp.narratix.assistant.ui.screen.ParallaxScreen
 import com.lebaillyapp.narratix.gyrosensor.SensorCrosshairDebugOverkill
 import com.lebaillyapp.narratix.gyrosensor.SensorViewModel
 import com.lebaillyapp.narratix.ui.theme.NarratixTheme
@@ -25,6 +26,7 @@ import kotlin.getValue
 class MainActivity : ComponentActivity() {
 
     private val sensorViewModel: SensorViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,10 @@ class MainActivity : ComponentActivity() {
 
               //  SensorCrosshairDebugOverkill(viewModel = sensorViewModel)
 
-                CinematicDemoScreen()
+
+                ParallaxScreen(viewModel = sensorViewModel )
+
+              //  CinematicDemoScreen()
             }
         }
     }
