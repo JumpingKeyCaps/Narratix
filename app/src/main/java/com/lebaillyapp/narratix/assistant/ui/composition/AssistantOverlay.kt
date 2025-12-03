@@ -237,7 +237,7 @@ fun AssistantOverlay(
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .fillMaxWidth(0.65f)
-                            .padding(end = 16.dp, bottom = 30.dp)
+                            .padding(end = 16.dp, bottom = 40.dp)
                     ) {
                         DialogueCrawler(
                             text = currentTextSegment.content, // Utilise le contenu du segment
