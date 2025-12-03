@@ -12,12 +12,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lebaillyapp.narratix.assistant.ui.composition.AssistantOverlay
 import com.lebaillyapp.narratix.assistant.ui.viewmodel.AssistantViewModel
 import com.lebaillyapp.narratix.assistant.ui.viewmodel.factory.AssistantViewModelFactory
 import com.lebaillyapp.narratix.R
+import com.lebaillyapp.narratix.assistant.decoration.FlowRibbonShader
 import com.lebaillyapp.narratix.assistant.decoration.LiquidBackground
+import com.lebaillyapp.narratix.assistant.decoration.UltimateChromeLiquidLive
 
 /**
  * Demo screen with a cinematic background and auto-starting AssistantOverlay.
@@ -52,17 +55,41 @@ fun CinematicDemoScreen(
         animationSpec = androidx.compose.animation.core.tween(3000)
     )
 
+
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
 
+        //Background deco
+        /**
         LiquidBackground(modifier = Modifier
             .fillMaxSize()
             .scale(scaleAnim)
             .alpha(0.95f)
         )
+        */
+
+        FlowRibbonShader(
+            modifier = Modifier.fillMaxSize()
+                .scale(scaleAnim)
+                .alpha(1.0f),
+            color = Color.hsv(41.0f, 1f, 1f),//282.36f
+            distortionStrength = 8.09f,
+            highlightIntensity = 0.69f,
+            gamma = 1.91f,
+            horizontalMix = 0.49f,
+            microStrength = 0f,
+            autoAnimate = true,
+            scaleOverride = 0.36f,
+            rotationOverride = 0f,
+            timeSpeedOverride = 1.24f,
+            animSpeedMultiplicator = 0.0f
+        )
+
 
         // Optional overlay gradient for cinematic feel
         Box(
