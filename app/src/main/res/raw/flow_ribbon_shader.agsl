@@ -1,0 +1,63 @@
+layout(color) uniform half4 u_Color;
+uniform float u_Time;
+uniform float u_DistortionStrength;
+uniform float u_TimeSpeed;
+uniform float u_HighlightIntensity;
+uniform float u_Gamma;
+uniform float u_HorizontalMix;
+uniform float u_MicroStrength;
+uniform float u_Scale;
+uniform float u_Rotation;
+uniform float2 u_Resolution;
+
+// Noise simple
+float noise(float2 uv) {
+    return fract(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
+}
+
+// Déformation liquide
+float2 ultimateDistortion(float2 uv, float t) {
+    float cosR = cos(u_Rotation);
+    float sinR = sin(u_Rotation);
+    float2 rotUV = float2(uv.x * cosR - uv.y * sinR, uv.x * sinR + uv.y * cosR);
+
+    // Ondes principales
+    float waveX = sin(rotUV.x * 4.0 + t * 0.5 * u_TimeSpeed) + 0.25 * sin(rotUV.y * 6.0 - t * 0.3 * u_TimeSpeed);
+    float waveY = cos(rotUV.y * 5.0 - t * 0.4 * u_TimeSpeed) + 0.25 * cos(rotUV.x * 3.0 + t * 0.6 * u_TimeSpeed);
+
+    // Micro-distortions
+    float microX = (noise(rotUV * 8.0 + t * 0.1 * u_TimeSpeed) - 0.5) * u_MicroStrength;
+    float microY = (noise(rotUV * 10.0 - t * 0.1 * u_TimeSpeed) - 0.5) * u_MicroStrength;
+
+    float2 distortion = float2(waveX + microX, waveY + microY);
+
+    // Scale appliqué après
+    return distortion * u_DistortionStrength / 10.0 * u_Scale;
+}
+
+// Reflets
+float ultimateReflection(float2 uv, float t) {
+    float verticalHighlight = 1.0 - abs(uv.y - 0.5) * 2.0;
+    float horizontalBands = pow(fract(uv.x * 6.0 + t * 0.1 * u_TimeSpeed), 2.0);
+    float flicker = noise(uv * 12.0 + t * 0.05 * u_TimeSpeed) * 0.05;
+    float roughness = smoothstep(0.0, 0.5, abs(uv.y - 0.5));
+
+    float reflectionVal = verticalHighlight * u_HighlightIntensity + horizontalBands * u_HorizontalMix + flicker;
+    reflectionVal = mix(reflectionVal, pow(reflectionVal, 2.0), 1.0 - roughness);
+    return clamp(reflectionVal, 0.0, 1.0);
+}
+
+// Main
+half4 main(float2 fragCoord) {
+    float2 uv = fragCoord.xy / u_Resolution.xy;
+
+    float2 offset = ultimateDistortion(uv, u_Time);
+    float2 distortedUV = uv + offset;
+
+    float reflection = ultimateReflection(distortedUV, u_Time/2);
+    float3 finalColor = float3(u_Color.rgb) * (reflection * 1.2 + 0.2);
+
+    finalColor = pow(finalColor, float3(u_Gamma));
+
+    return half4(finalColor, u_Color.a);
+}
