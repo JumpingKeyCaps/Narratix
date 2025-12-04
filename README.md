@@ -30,6 +30,15 @@ A **modular, cinematic dialogue assistant** for Android, designed to overlay scr
 
 ---
 
+
+--
+
+| Cinematique Demo 1 | Sensor Parallax Demo 2 | 
+|:---:|:---:|
+| ![P1](screenshots/demo1.gif) | ![P2](screenshots/demo2.gif) |
+
+---
+
 ## Project Layers
 
 ### Models Layer
