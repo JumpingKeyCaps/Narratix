@@ -39,124 +39,130 @@ A **modular, cinematic dialogue assistant** for Android, designed to overlay scr
 
 ---
 
-## Project Layers
+## Architecture Overview
 
-### Models Layer
+The system processes dialogue in a clear pipeline:
 
-#### Raw DTOs
-Represent JSON structure exactly; no runtime processing:
+1. JSON Script (raw data)  
+2. Android resource mapping  
+3. Domain model construction  
+4. Message segmentation  
+5. ViewModel state management  
+6. Compose UI rendering  
 
-- `RawAssistantMessage`  
-  - `text: String` → may contain `[AVATAR=N]` tags  
-  - `highlightMap: Map<String, String>` → keywords → hex color codes  
-  - `speed: Long` → ms per character  
-  - `avatars: List<String>` → avatar resource names  
-
-- `RawDialogueScript`  
-  - `scriptId: String` → unique ID  
-  - `startAvatarResName: String` → default avatar  
-  - `messages: List<RawAssistantMessage>` → ordered dialogue messages  
-
-#### Domain Models
-Runtime-ready types for UI rendering:
-
-- `AssistantMessage` → typed message with `avatarResIds: List<Int>` and `highlightMap: Map<String, Color>`  
-- `AssistantState` → overlay visibility, current avatar, list of messages  
-- `DialogueScript` → complete runtime script with default avatar  
-- `DialogueSegment` *(sealed class)* → `Text(content, highlightMap)` or `AvatarChange(newAvatarResId)`  
-- `DisplayChunk` → two-line block of text for pagination  
-
-**Notes:**  
-Segmentation allows precise typewriter control, avatar switching mid-message, and keyword highlighting. Domain models are fully Compose-ready.
+Each stage has a single responsibility to maintain testability and modularity.
 
 ---
 
-### DialogueService (Service Layer)
+## Models
 
-Handles JSON loading, conversion to domain models, and Android resource mapping:
+### Raw Models (JSON)
 
-- Load JSON from `res/raw` using `scriptId`  
-- Convert `RawAssistantMessage` → `AssistantMessage`  
-  - Hex colors → `Color`  
-  - Avatar names → drawable IDs  
-- Map script to `DialogueScript`  
-- Provides `Flow<DialogueScript>` for reactive consumption  
+These types reflect the JSON structure without any transformation:
 
-**Notes:**  
-- Fully isolates Android-specific logic  
-- Backward-compatible with scripts missing avatars or highlights  
-- Type-safe mapping ensures UI never sees raw strings  
+- `RawAssistantMessage`
+  - `text` (may contain `[AVATAR=N]`)
+  - `highlightMap` (keyword → hex color)
+  - `speed`
+  - `avatars` (drawable resource names)
 
----
+- `RawDialogueScript`
+  - `scriptId`
+  - `startAvatarResName`
+  - `messages`
 
-### DialogueRepository (Repository Layer)
+### Domain Models (UI-Ready)
 
-Thin abstraction over `DialogueService`:
+Converted and typed for runtime usage:
 
-- Delegates `loadDialogue(context, scriptId)` to service  
-- No extra business logic  
-- Ensures **MVVM separation of concerns**  
-- Can be extended for caching, multiple data sources, or testing  
+- `AssistantMessage` (typed colors, resolved drawable IDs)
+- `DialogueScript`
+- `AssistantState`
+- `DialogueSegment` (either `Text` or `AvatarChange`)
+- `DisplayChunk` (two-line pagination unit)
 
----
-
-### Preprocessing Utility
-
-`preprocessMessage(message: AssistantMessage): List<DialogueSegment>`
-
-- Detects `[AVATAR=N]` tags  
-- Splits text into `Text` segments and inserts `AvatarChange` segments  
-- Converts tag indices → valid avatar resource IDs  
-- Ensures safe, at least one `Text` segment per message  
-
-**Notes:**  
-- Allows mid-message avatar switching  
-- Preserves keyword highlights  
-- Decouples parsing from UI  
+Segmentation enables mid-message avatar changes, accurate cursor control, and precise highlight management.
 
 ---
 
-### AssistantViewModel
+## DialogueService
 
-Manages overlay state and dialogue playback:
+Responsible for all Android-specific operations:
 
-- Maintains `AssistantState` (visibility, current avatar, messages)  
-- Loads scripts via `DialogueRepository`  
-- Processes `[AVATAR=N]` via `updateAvatar()`  
-- Controls overlay via `closeAssistant()`  
-- Exposes state via `StateFlow` for Compose UI  
+- Loads JSON from `res/raw`
+- Maps hex colors to `Color`
+- Resolves avatar names to drawable resource IDs
+- Constructs `DialogueScript`
+- Exposes data through `Flow<DialogueScript>`
+
+This layer fully isolates platform-specific logic and ensures the UI never processes raw strings or resource names.
 
 ---
 
-###  AssistantViewModelFactory
+## DialogueRepository
 
-- Instantiates `AssistantViewModel` with repository/service  
-- Lightweight DI without external frameworks  
-- Safe casting with `IllegalArgumentException` fallback  
+A thin abstraction on top of `DialogueService`:
+
+- Delegates script loading
+- Preserves MVVM separation of concerns
+- Can be extended for caching or alternative data sources
+
+---
+
+## Preprocessing and Segmentation
+
+`preprocessMessage(message: AssistantMessage)` returns a list of `DialogueSegment`:
+
+- Detects `[AVATAR=N]` tags
+- Splits text into `Text` segments
+- Injects `AvatarChange` segments
+- Retains highlight rules
+- Guarantees at least one `Text` segment per message
+
+This stage ensures the typewriter engine can react to mid-message avatar switches and highlight rendering.
+
+---
+
+## AssistantViewModel
+
+Central state and flow manager:
+
+- Holds `AssistantState` (visibility, avatar, current message)
+- Loads scripts through the repository
+- Applies segmentation results
+- Controls overlay lifecycle
+- Exposes state via `StateFlow` for Compose UI
+
+---
+
+## AssistantViewModelFactory
+
+Simple, explicit DI helper:
+
+- Instantiates the ViewModel with its repository and service dependencies
+- Provides safe casting with `IllegalArgumentException` fallback
 
 ---
 
 ## UI Components
 
 ### WaitingCursor
-- Animated downward arrow signaling interaction  
-- Bouncing animation with `rememberInfiniteTransition`  
+- Small animated indicator suggesting progression or interaction
 
 ### DialogueCrawler
-- Typewriter animation with skip  
-- Two-line chunk pagination  
-- Per-word highlighting via `highlightMap`  
-- Callback: `onTotalChunksCalculated` & `onChunkFinished`  
+- Typewriter engine
+- Skip support
+- Two-line pagination
+- Keyword highlighting
+- Callbacks for chunk computation and completion events
 
 ### AssistantOverlay
-- Full-screen overlay composable  
-- Handles message iteration, chunking, typewriter animation  
-- Automatic avatar changes  
-- Click handling to skip or advance text  
-- Gradient background + breathing avatar + crawler + waiting cursor  
+- Full-screen composable managing the entire narrative flow
+- Handles chunk progression and typewriter logic
+- Applies gradient background and animated avatar presentation
+- Click-to-skip or advance behavior
 
 ---
-
 ## Dialogue Script JSON Structure
 
 ```json
