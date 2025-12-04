@@ -8,11 +8,14 @@ import androidx.activity.viewModels
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lebaillyapp.narratix.assistant.decoration.LiquidBackground
 import com.lebaillyapp.narratix.assistant.decoration.UltimateChromeLiquidDemo
 import com.lebaillyapp.narratix.assistant.ui.screen.CinematicDemoScreen
 import com.lebaillyapp.narratix.assistant.ui.screen.DemoScreen1
 import com.lebaillyapp.narratix.assistant.ui.screen.ParallaxScreen
+import com.lebaillyapp.narratix.assistant.ui.viewmodel.AssistantViewModel
+import com.lebaillyapp.narratix.assistant.ui.viewmodel.factory.AssistantViewModelFactory
 import com.lebaillyapp.narratix.gyrosensor.SensorCrosshairDebugOverkill
 import com.lebaillyapp.narratix.gyrosensor.SensorViewModel
 import com.lebaillyapp.narratix.ui.theme.NarratixTheme
@@ -25,6 +28,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.Transparent.toArgb()
@@ -33,9 +39,9 @@ class MainActivity : ComponentActivity() {
             NarratixTheme {
                 //DemoScreen1()
 
-           //     ParallaxScreen(viewModel = sensorViewModel )
+                ParallaxScreen(viewModel = sensorViewModel)
 
-                CinematicDemoScreen()
+             //   CinematicDemoScreen()
 
 
             //    UltimateChromeLiquidDemo()
