@@ -133,7 +133,7 @@ fun AssistantOverlayAlt(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp)
-                    .graphicsLayer(translationX = tiltTranslationX, scaleX = 1.0f, scaleY = 1.0f)
+
             ) {
 
                 val (avatarRef, bubbleRef) = remember { createRefs() }
@@ -160,6 +160,7 @@ fun AssistantOverlayAlt(
                             }
                             .size(300.dp)
                             .scale(scale)
+                            .graphicsLayer(translationX = tiltTranslationX, scaleX = 1.0f, scaleY = 1.0f)
                     )
                 }
 
@@ -167,26 +168,23 @@ fun AssistantOverlayAlt(
                 if (currentTextSegment != null) {
                     Box(
                         modifier = Modifier
+                            .graphicsLayer(translationX = tiltTranslationX/4f, scaleX = 1.0f, scaleY = 1.0f)
                             .constrainAs(bubbleRef) {
-                                top.linkTo(parent.top)
                                 bottom.linkTo(parent.bottom)
 
-                                if (state.currentAvatarResId != 0) {
-                                    start.linkTo(avatarRef.end, margin = 12.dp)
-                                } else {
-                                    start.linkTo(parent.start)
-                                }
+                                start.linkTo(parent.start)
                                 end.linkTo(parent.end)
 
                                 width = Dimension.fillToConstraints
                                 height = Dimension.wrapContent
                             }
-                            .padding(12.dp)
+                            .padding(bottom = 25.dp, start = 12.dp, end = 12.dp, top = 12.dp)
                             .background(
                                 Color.Black.copy(alpha = 0.65f),
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(18.dp)
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(15.dp)
                             )
                             .padding(16.dp)
+
                     ) {
                         DialogueCrawler(
                             text = currentTextSegment.content,
