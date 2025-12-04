@@ -46,6 +46,7 @@ class DialogueService {
     private fun getRawResourceId(scriptId: String): Int? {
         return when (scriptId) {
             "DEMO_1" -> R.raw.dialogue_demo_1
+            "DEMO_2" -> R.raw.snatch_demo_dags
             else -> null
         }
     }
