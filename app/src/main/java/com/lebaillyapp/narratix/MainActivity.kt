@@ -41,11 +41,7 @@ class MainActivity : ComponentActivity() {
 
                 ParallaxScreen(viewModel = sensorViewModel)
 
-             //   CinematicDemoScreen()
-
-
-            //    UltimateChromeLiquidDemo()
-
+               // CinematicDemoScreen()
 
             }
         }
