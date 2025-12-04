@@ -101,7 +101,7 @@
       ]
     },
     {
-      "text": "[AVATAR=0] Tu nous as vus arriver ou quoi ? [AVATAR=!] Elle en vaut pas plus de 4.",
+      "text": "[AVATAR=0] Tu nous as vus arriver ou quoi ? [AVATAR=1] Elle en vaut pas plus de 4.",
       "highlightMap": {
         "4": "#FF7043"
       },
