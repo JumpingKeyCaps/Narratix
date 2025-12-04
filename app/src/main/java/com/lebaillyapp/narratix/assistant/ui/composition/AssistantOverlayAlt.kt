@@ -14,10 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.lebaillyapp.narratix.assistant.model.AssistantState
 import com.lebaillyapp.narratix.assistant.model.DialogueSegment
 import com.lebaillyapp.narratix.assistant.ui.component.DialogueCrawler
@@ -29,7 +32,8 @@ fun AssistantOverlayAlt(
     state: AssistantState,
     onClose: () -> Unit,
     onHudOffsetCallback: (Dp) -> Unit,
-    onAvatarChangeInVm: (Int) -> Unit
+    onAvatarChangeInVm: (Int) -> Unit,
+    tiltTranslationX: Float
 ) {
     // --- Même mécanique interne : isVisible, segments, chunks, skip, etc. ---
     val visibleState = remember { MutableTransitionState(state.isVisible) }
@@ -94,7 +98,7 @@ fun AssistantOverlayAlt(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        // Capture des clics
+        // Capture des clics (NON-TRANSLATÉE, couvre tout l'écran)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -124,22 +128,21 @@ fun AssistantOverlayAlt(
             exit = slideOutVertically { it } + fadeOut(),
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
-
-
             // ============================================
-            Row(
+            ConstraintLayout(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(0.dp)
+                    .graphicsLayer(translationX = tiltTranslationX, scaleX = 1.0f, scaleY = 1.0f)
             ) {
+
+                val (avatarRef, bubbleRef) = remember { createRefs() }
 
                 // --------- AVATAR ---------
                 if (state.currentAvatarResId != 0) {
                     val infiniteTransition = rememberInfiniteTransition()
                     val scale by infiniteTransition.animateFloat(
-                        initialValue = 1f,
+                        initialValue = 1.0f,
                         targetValue = 1.05f,
                         animationSpec = infiniteRepeatable(
                             tween(6000, easing = LinearEasing),
@@ -151,6 +154,10 @@ fun AssistantOverlayAlt(
                         painter = painterResource(state.currentAvatarResId),
                         contentDescription = null,
                         modifier = Modifier
+                            .constrainAs(avatarRef) {
+                                start.linkTo(parent.start)
+                                bottom.linkTo(parent.bottom)
+                            }
                             .size(300.dp)
                             .scale(scale)
                     )
@@ -160,7 +167,20 @@ fun AssistantOverlayAlt(
                 if (currentTextSegment != null) {
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth(0.65f)
+                            .constrainAs(bubbleRef) {
+                                top.linkTo(parent.top)
+                                bottom.linkTo(parent.bottom)
+
+                                if (state.currentAvatarResId != 0) {
+                                    start.linkTo(avatarRef.end, margin = 12.dp)
+                                } else {
+                                    start.linkTo(parent.start)
+                                }
+                                end.linkTo(parent.end)
+
+                                width = Dimension.fillToConstraints
+                                height = Dimension.wrapContent
+                            }
                             .padding(12.dp)
                             .background(
                                 Color.Black.copy(alpha = 0.65f),
@@ -180,7 +200,7 @@ fun AssistantOverlayAlt(
                         )
                     }
                 }
-            }
+            } // Fin ConstraintLayout
         }
     }
 }
