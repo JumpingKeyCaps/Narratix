@@ -59,6 +59,9 @@ fun ParallaxScreen(
     val density = LocalDensity.current
     val hudOffsetPx = with(density) { hudOffset.roundToPx() }
 
+    // Largeur de l'écran en Dp (basé sur les pixels réels de l'appareil)
+    val screenWidth = LocalContext.current.resources.displayMetrics.widthPixels.dp
+
     val layers = listOf(
         Layer(R.drawable.sky, 0.4f, 1.05f, Modifier.fillMaxSize()),
         Layer(R.drawable.forest, 0.6f, 1.10f, Modifier.fillMaxWidth()),
@@ -67,11 +70,27 @@ fun ParallaxScreen(
 
     Box(modifier = modifier.fillMaxSize()) {
 
-        // *** PARALLAXE 100% IDENTIQUE À TA VERSION ***
+        // *** PARALLAXE AVEC SÉCURITÉ ANTI-BORDURE (POINT 1) ***
         layers.forEach { layer ->
+
+            // 1. Calculer la marge de manœuvre disponible en DP
+            // Note: Nous utilisons le ratio pour calculer l'espace disponible
+            val maxTranslationRatio = (layer.zoom - 1f) / 2f
+            val maxTranslationDp = screenWidth * maxTranslationRatio
+
+            // 2. Calculer l'offset souhaité
+            val desiredOffset = tilt.x * layer.speed * 200f
+
+            // 3. Limiter l'offset à la marge disponible
+            val constrainedOffsetDp = desiredOffset.coerceIn(
+                minimumValue = -maxTranslationDp.value, // Limite négative
+                maximumValue = maxTranslationDp.value    // Limite positive
+            ).dp.value // On récupère la valeur Float en DP
+
             val offsetX by animateFloatAsState(
-                targetValue = tilt.x * layer.speed * 200f,
-                animationSpec = spring(stiffness = Spring.StiffnessMedium)
+                targetValue = constrainedOffsetDp,
+                animationSpec = spring(stiffness = Spring.StiffnessMedium),
+                label = "parallaxOffsetX"
             )
 
             Image(
@@ -79,7 +98,7 @@ fun ParallaxScreen(
                 contentDescription = null,
                 modifier = layer.mod
                     .graphicsLayer(
-                        translationX = offsetX,
+                        translationX = offsetX, // Utilisation de l'offset contraint
                         scaleX = layer.zoom,
                         scaleY = layer.zoom
                     )
@@ -88,21 +107,22 @@ fun ParallaxScreen(
             )
         }
 
-        // *** OVERLAY PAR-DESSUS, RIEN NE TOUCHE À LA PARALLAXE ***
+        // *** OVERLAY AVEC PASSAGE DE LA TRANSLATION  ***
         val overlayOffsetX by animateFloatAsState(
             targetValue = tilt.x * -200f,
-            animationSpec = spring(stiffness = Spring.StiffnessLow)
+            animationSpec = spring(stiffness = Spring.StiffnessLow),
+            label = "overlayOffsetX"
         )
 
         AssistantOverlayAlt(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .graphicsLayer(translationX = overlayOffsetX, scaleX = 1.1f, scaleY = 1.1f)
                 .offset { IntOffset(0, 0 - hudOffsetPx) },
             state = assistantState,
             onClose = { assistantViewModel.closeAssistant() },
             onHudOffsetCallback = { dp -> hudOffset = dp },
-            onAvatarChangeInVm = { id -> assistantViewModel.updateAvatar(id) }
+            onAvatarChangeInVm = { id -> assistantViewModel.updateAvatar(id) },
+            tiltTranslationX = overlayOffsetX
         )
     }
 }
